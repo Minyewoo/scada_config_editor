@@ -17,19 +17,19 @@ sealed class ScadaConfigEntry {
       ['service', 'Task', final name] => Task(name: name),
       ['service', 'CacheService', final name] => CacheService(name: name),
       ['service', 'ProfinetClient', final name] => ProfinetClient(name: name),
-      _ => _UnknownEntry(name: names.toString()),
+      _ => UnknownEntry(name: names.toString()),
     };
   }
   MapEntry<String, dynamic> asMapEntry();
 }
 
-final class _UnknownEntry implements ScadaConfigEntry {
+final class UnknownEntry implements ScadaConfigEntry {
   @override
   final String? name;
   @override
   final String typeName = 'Unknown';
 
-  const _UnknownEntry({this.name});
+  const UnknownEntry({this.name});
 
   @override
   MapEntry<String, dynamic> asMapEntry() => const MapEntry(

@@ -142,22 +142,52 @@ class _EditorScreenState extends State<EditorScreen> {
               style: textStyle,
             ),
           Expanded(
-            child: ListView(
+            child: GridView.count(
+              crossAxisCount: 4,
               children: _scadaConfig.entries
                   .map(
-                    (entry) => Center(
-                      child: SizedBox.square(
-                        dimension: 500,
-                        child: Card(
-                          child: Align(
-                            alignment: Alignment.topCenter,
-                            child: Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: Text(
-                                'service ${entry.typeName}'
-                                ' ${entry.name ?? ''}',
-                                style: Theme.of(context).textTheme.titleLarge,
-                              ),
+                    (entry) => Card(
+                      clipBehavior: Clip.antiAlias,
+                      child: InkWell(
+                        onTap: () {},
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  margin: const EdgeInsets.all(8),
+                                  padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                                  decoration: ShapeDecoration(
+                                    shape: const StadiumBorder(),
+                                    color: switch(entry) {
+                                      MultiQueue() => Colors.blue,
+                                      ApiClient() => Colors.pinkAccent,
+                                      CacheService() => Colors.green,
+                                      ProfinetClient() => Colors.deepPurpleAccent,
+                                      Task() => Colors.cyan,
+                                      TcpServer() => Colors.deepOrangeAccent,
+                                      UnknownEntry() => Colors.redAccent,
+                                    },
+                                  ),
+                                  child: Text(
+                                    entry.typeName,
+                                    style: Theme.of(context).textTheme.titleLarge,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.fade,
+                                    softWrap: false,
+                                  ),
+                                ),
+                                if(entry.name != null)
+                                  Text(
+                                    entry.name!,
+                                    style: Theme.of(context).textTheme.titleLarge,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.fade,
+                                    softWrap: false,
+                                  ),
+                              ],
                             ),
                           ),
                         ),
