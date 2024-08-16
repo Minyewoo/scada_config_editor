@@ -11,7 +11,7 @@ dependencies:
     sdk: flutter
   yaml: ^3.1.2
   yaml_writer: ^2.0.0
-  file_picker: ^8.1.1
+  file_picker: ^8.1.2
 
 dev_dependencies:
   flutter_test:
